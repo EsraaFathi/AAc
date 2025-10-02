@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-const dataFile = path.join(process.cwd(), "server", "data.json");
+const dataFile = path.join(process.cwd(), "api", "data.json");
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
