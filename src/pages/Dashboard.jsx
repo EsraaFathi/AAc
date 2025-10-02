@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 
 const API_URL = "/api/buttons";
-const LOGO_API_URL = "/api/logo";
+const LOGO_API_URL = "/api/logo-url";
 
 export default function Dashboard() {
   const [buttons, setButtons] = useState([]);
@@ -47,7 +47,8 @@ export default function Dashboard() {
     try {
       const res = await fetch(LOGO_API_URL);
       if (res.ok) {
-        setLogoUrl(LOGO_API_URL + "?" + Date.now()); // cache bust
+        const data = await res.json();
+        setLogoUrl(data.logoUrl || "");
       }
     } catch {}
   };
@@ -81,14 +82,20 @@ export default function Dashboard() {
   };
 
   const handleLogoChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
     setLogoUploading(true);
     try {
+      const file = e.target.files[0];
+      if (!file) return;
+      // Example: upload to Cloudinary or Vercel Blob, get url
+      // For now, simulate upload and get a URL
+      const url = window.prompt(
+        "ضع رابط الصورة هنا بعد رفعها على Cloudinary أو أي خدمة تخزين:"
+      );
+      if (!url) return;
       await fetch(LOGO_API_URL, {
         method: "POST",
-        headers: { "Content-Type": file.type },
-        body: await file.arrayBuffer(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ logoUrl: url }),
       });
       await fetchLogo();
     } catch {}
