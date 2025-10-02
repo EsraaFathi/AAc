@@ -1,8 +1,8 @@
 import { FaExternalLinkAlt } from "react-icons/fa";
 import * as React from "react";
 
-const API_URL = "http://localhost:4000/api/buttons";
-const LOGO_API_URL = "http://localhost:4000/api/logo";
+const API_URL = "/api/buttons";
+const LOGO_API_URL = "/api/logo";
 
 const COMPANY_NAME = "ArakMedical Equipment Company ";
 

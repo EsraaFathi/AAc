@@ -9,8 +9,8 @@ import {
   FaRegListAlt,
 } from "react-icons/fa";
 
-const API_URL = "http://localhost:4000/api/buttons";
-const LOGO_API_URL = "http://localhost:4000/api/logo";
+const API_URL = "/api/buttons";
+const LOGO_API_URL = "/api/logo";
 
 export default function Dashboard() {
   const [buttons, setButtons] = useState([]);
