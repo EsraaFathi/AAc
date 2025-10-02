@@ -2,7 +2,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import * as React from "react";
 
 const API_URL = "/api/buttons";
-const LOGO_API_URL = "/api/logo-url";
+const LOGO_API_URL = "/logo.png";
 
 const COMPANY_NAME = "ArakMedical Equipment Company ";
 
@@ -59,15 +59,7 @@ export default function UserPage() {
   };
 
   const fetchLogo = async () => {
-    try {
-      const res = await fetch(LOGO_API_URL);
-      if (res.ok) {
-        const data = await res.json();
-        setLogoUrl(data.logoUrl || "");
-      }
-    } catch {
-      console.log("Failed to load logo");
-    }
+    setLogoUrl(LOGO_API_URL + "?" + Date.now());
   };
 
   // Detect theme from body class
