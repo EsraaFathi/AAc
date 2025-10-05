@@ -2,8 +2,6 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import * as React from "react";
 
 const API_URL = "/api/buttons";
-const LOGO_API_URL = "/logo.png";
-
 const COMPANY_NAME = "ArakMedical Equipment Company ";
 
 export default function UserPage() {
@@ -21,7 +19,6 @@ export default function UserPage() {
   const [buttons, setButtons] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
-  const [logoUrl, setLogoUrl] = React.useState("");
   // Typewriter animation state
   const [typedName, setTypedName] = React.useState("");
   React.useEffect(() => {
@@ -43,7 +40,6 @@ export default function UserPage() {
 
   React.useEffect(() => {
     fetchButtons();
-    fetchLogo();
   }, []);
 
   const fetchButtons = async () => {
@@ -56,10 +52,6 @@ export default function UserPage() {
       setError("Failed to load buttons");
     }
     setLoading(false);
-  };
-
-  const fetchLogo = async () => {
-    setLogoUrl(LOGO_API_URL + "?" + Date.now());
   };
 
   // Detect theme from body class
@@ -91,15 +83,6 @@ export default function UserPage() {
             theme === "dark" ? "border-gray-700" : "border-white"
           }`}
         />
-        {/* {logoUrl && (
-          <img
-            src={logoUrl}
-            alt="Company Logo"
-            className={`w-28 h-28 rounded-full shadow-2xl border-4 mb-4 ${
-              theme === "dark" ? "border-gray-700" : "border-white"
-            }`}
-          />
-        )} */}
         <h1
           className={`text-3xl font-extrabold tracking-tight mb-2 drop-shadow-lg ${
             theme === "dark" ? "text-cyan-200" : "text-gray-800"

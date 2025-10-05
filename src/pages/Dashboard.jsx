@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonForm from "../components/ButtonForm";
 import ButtonList from "../components/ButtonList";
@@ -10,16 +10,13 @@ import {
 } from "react-icons/fa";
 
 const API_URL = "/api/buttons";
-const LOGO_API_URL = "/logo.png";
 
 export default function Dashboard() {
   const [buttons, setButtons] = useState([]);
   const [editingButton, setEditingButton] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [logoUrl, setLogoUrl] = useState("");
-  const [logoUploading, setLogoUploading] = useState(false);
-  const logoInputRef = useRef();
+  // ...existing code...
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,8 +24,7 @@ export default function Dashboard() {
       navigate("/login");
     }
     fetchButtons();
-    fetchLogo();
-    // eslint-disable-next-line
+    // ...existing code...
   }, [navigate]);
 
   const fetchButtons = async () => {
@@ -37,14 +33,10 @@ export default function Dashboard() {
       const res = await fetch(API_URL);
       const data = await res.json();
       setButtons(data);
-    } catch (err) {
+    } catch {
       setError("Failed to load buttons");
     }
     setLoading(false);
-  };
-
-  const fetchLogo = async () => {
-    setLogoUrl(LOGO_API_URL + "?" + Date.now());
   };
 
   const handleSave = async (btn) => {
@@ -73,17 +65,6 @@ export default function Dashboard() {
     } catch {
       setError("Failed to delete button");
     }
-  };
-
-  const handleLogoChange = async (e) => {
-    setLogoUploading(true);
-    try {
-      const file = e.target.files[0];
-      if (!file) return;
-      alert("قم باستبدال ملف logo.png في مجلد public ليتغير الشعار.");
-      await fetchLogo();
-    } catch {}
-    setLogoUploading(false);
   };
 
   const handleLogout = () => {
@@ -140,15 +121,7 @@ export default function Dashboard() {
               theme === "dark" ? "border-gray-700" : "border-white"
             }`}
           />
-          {/* {logoUrl && (
-            <img
-              src={logoUrl}
-              alt="Logo"
-              className={`w-24 h-24 mb-2 rounded-full shadow-2xl border-4 ${
-                theme === "dark" ? "border-gray-700" : "border-white"
-              }`}
-            />
-          )} */}
+
           {/* <label
             htmlFor="logo-upload"
             className={`flex items-center gap-2 cursor-pointer px-4 py-2 rounded-lg font-semibold shadow transition-all duration-200 mb-2 ${

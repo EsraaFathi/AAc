@@ -43,7 +43,7 @@ function App() {
         {theme === "light" ? (
           <FaMoon size={24} color="#333" title="Switch to dark mode" />
         ) : (
-          <FaSun size={26} color="#FFD700" title="Switch to light mode" />
+          <FaSun size={26} color="#f7f5efff" title="Switch to light mode" />
         )}
       </button>
       <Router>
