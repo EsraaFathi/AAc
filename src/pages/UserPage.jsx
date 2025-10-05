@@ -75,35 +75,41 @@ export default function UserPage() {
           : "bg-gradient-to-br from-blue-100 via-purple-100 to-amber-50"
       }`}
     >
-      <div className="flex flex-col items-center mt-8 mb-8">
+      <div className="flex flex-col items-center mt-6 mb-6 sm:mt-8 sm:mb-8">
         <img
           src="/logo.png"
           alt="Logo"
-          className={`w-24 h-24 mb-2 rounded-full shadow-2xl border-4 ${
+          className={`w-20 h-20 sm:w-24 sm:h-24 mb-2 rounded-full shadow-2xl border-4 ${
             theme === "dark" ? "border-gray-700" : "border-white"
-          }`}
+          } transition-all duration-300`}
         />
         <h1
-          className={`text-3xl font-extrabold tracking-tight mb-2 drop-shadow-lg ${
+          className={`text-2xl sm:text-3xl font-extrabold tracking-tight mb-1 sm:mb-2 drop-shadow-lg ${
             theme === "dark" ? "text-cyan-200" : "text-gray-800"
           }`}
         >
           <span
             style={{
               borderRight: "2px solid",
-              paddingRight: 4,
+              paddingRight: 3,
               animation: "blink 1s steps(1) infinite",
+              fontSize: "1em",
+              wordBreak: "break-word",
+              display: "inline-block",
+              minHeight: "1.2em",
+              lineHeight: 1.2,
             }}
           >
             {typedName}
           </span>
         </h1>
         <p
-          className={`text-lg font-medium mb-2 ${
+          className={`text-base sm:text-lg font-medium mb-1 sm:mb-2 text-center ${
             theme === "dark" ? "text-gray-300" : "text-gray-500"
           }`}
         >
-          نسعى دائماً بتقديم أفضل الاجهزةالليزر والتجميل لكافةالعيادات
+          نسعى دائماً بتقديم أفضل الاجهزة الليزر والتجميل لكافة العيادات
+          <br className="hidden sm:block" />
           والمستشفيات
         </p>
       </div>
