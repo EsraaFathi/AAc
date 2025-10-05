@@ -34,28 +34,7 @@ export default function ButtonForm({ onSave, editingButton }) {
   return (
     <form
       onSubmit={handleSubmit}
-      // className={`flex flex-col gap-4 p-6 rounded-2xl shadow-xl border transition-colors duration-300
-
       className={`flex flex-col gap-4 p-6 rounded-2xl shadow-xl border transition-colors duration-300
-
-      rounded-3xl
-      shadow-xl
-      border-t-4
-      border-b-4
-      transition-all
-      duration-200
-      flex
-      flex-col
-      items-center
-      justify-center
-      p-2
-      my-5
-      cursor-pointer
-      hover:scale-105
-      hover:shadow-2xl
-      relative
-      overflow-hidden
-
          ${
            theme === "dark"
              ? "bg-[#232526] border-[#333]"

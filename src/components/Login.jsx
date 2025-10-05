@@ -71,7 +71,7 @@ export default function Login() {
             theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
           }
         >
-          {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+          {/* {theme === "dark" ? "☀️ Light" : "🌙 Dark"} */}
         </button>
         <img
           src="/logo.png"

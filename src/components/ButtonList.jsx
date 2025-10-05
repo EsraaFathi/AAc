@@ -27,18 +27,18 @@ export default function ButtonList({ buttons, onEdit, onDelete }) {
           className={
             `group rounded-3xl shadow-xl border-t-4 border-b-4 transition-all duration-200 flex flex-col items-center justify-center p-2 my-5 cursor-pointer hover:scale-105 hover:shadow-2xl relative overflow-hidden ` +
             (theme === "dark"
-              ? `bg-gradient-to-br from-[#232526] to-[#414345] border-cyan-700 hover:border-amber-600`
-              : `bg-white border-blue-400 hover:border-amber-50 ` +
+              ? `bg-gradient-to-br from-[#232526] to-[#414345] border-cyan-700 hover:border-gray-600`
+              : `bg-white border-blue-400 hover:border-gray-50 ` +
                 (i % 2 === 0
-                  ? "bg-gradient-to-br from-blue-50 to-amber-50"
-                  : "bg-gradient-to-br from-amber-50 to-blue-50"))
+                  ? "bg-gradient-to-br from-blue-50 to-gray-50"
+                  : "bg-gradient-to-br from-gray-50 to-blue-50"))
           }
         >
           <span
             className={`text-xl font-bold mb-2 text-center transition-all ${
               theme === "dark"
-                ? "text-cyan-200 group-hover:text-amber-50"
-                : "text-gray-800 group-hover:text-amber-600"
+                ? "text-cyan-200 group-hover:text-gray-50"
+                : "text-gray-800 group-hover:text-gray-600"
             }`}
           >
             {btn.name}
@@ -50,8 +50,8 @@ export default function ButtonList({ buttons, onEdit, onDelete }) {
             <FaExternalLinkAlt
               className={
                 theme === "dark"
-                  ? "text-cyan-700 group-hover:text-amber-600 text-2xl drop-shadow mb-"
-                  : "text-blue-500 group-hover:text-amber-500 text-2xl drop-shadow mb-"
+                  ? "text-cyan-700 group-hover:text-gray-600 text-2xl drop-shadow mb-"
+                  : "text-blue-500 group-hover:text-gray-500 text-2xl drop-shadow mb-"
               }
             />
           </span>
