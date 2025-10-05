@@ -142,7 +142,7 @@ export default function Dashboard() {
               }`}
             />
           )}
-          <label
+          {/* <label
             htmlFor="logo-upload"
             className={`flex items-center gap-2 cursor-pointer px-4 py-2 rounded-lg font-semibold shadow transition-all duration-200 mb-2 ${
               theme === "dark"
@@ -161,7 +161,7 @@ export default function Dashboard() {
               className="hidden"
               disabled={logoUploading}
             />
-          </label>
+          </label> */}
         </div>
         {error && <div className="text-red-500 mb-4">{error}</div>}
         <div
