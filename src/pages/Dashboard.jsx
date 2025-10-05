@@ -133,7 +133,14 @@ export default function Dashboard() {
           </button>
         </div>
         <div className="mb-8 flex flex-col items-center">
-          {logoUrl && (
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className={`w-24 h-24 mb-2 rounded-full shadow-2xl border-4 ${
+              theme === "dark" ? "border-gray-700" : "border-white"
+            }`}
+          />
+          {/* {logoUrl && (
             <img
               src={logoUrl}
               alt="Logo"
@@ -141,7 +148,7 @@ export default function Dashboard() {
                 theme === "dark" ? "border-gray-700" : "border-white"
               }`}
             />
-          )}
+          )} */}
           {/* <label
             htmlFor="logo-upload"
             className={`flex items-center gap-2 cursor-pointer px-4 py-2 rounded-lg font-semibold shadow transition-all duration-200 mb-2 ${

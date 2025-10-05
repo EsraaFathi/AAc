@@ -84,7 +84,14 @@ export default function UserPage() {
       }`}
     >
       <div className="flex flex-col items-center mt-8 mb-8">
-        {logoUrl && (
+        <img
+          src="/logo.png"
+          alt="Logo"
+          className={`w-24 h-24 mb-2 rounded-full shadow-2xl border-4 ${
+            theme === "dark" ? "border-gray-700" : "border-white"
+          }`}
+        />
+        {/* {logoUrl && (
           <img
             src={logoUrl}
             alt="Company Logo"
@@ -92,7 +99,7 @@ export default function UserPage() {
               theme === "dark" ? "border-gray-700" : "border-white"
             }`}
           />
-        )}
+        )} */}
         <h1
           className={`text-3xl font-extrabold tracking-tight mb-2 drop-shadow-lg ${
             theme === "dark" ? "text-cyan-200" : "text-gray-800"
@@ -183,7 +190,14 @@ export default function UserPage() {
           theme === "dark" ? "text-cyan-700" : "text-gray-400"
         }`}
       >
-        &copy; {new Date().getFullYear()} Promisify Team. All rights reserved.
+        <a
+          href="https://www.facebook.com/profile.php?id=61555179886514"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          &copy; {new Date().getFullYear()} Promisify Team. All rights reserved.
+        </a>
       </footer>
     </div>
   );
