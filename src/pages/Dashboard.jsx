@@ -9,13 +9,15 @@ import {
   FaRegListAlt,
 } from "react-icons/fa";
 
-const API_URL = "/api/buttons";
+const API_URL = "http://localhost:3001/api/buttons";
 
 export default function Dashboard() {
   const [buttons, setButtons] = useState([]);
   const [editingButton, setEditingButton] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [orderDirty, setOrderDirty] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   // ...existing code...
   const navigate = useNavigate();
 
@@ -39,13 +41,119 @@ export default function Dashboard() {
     setLoading(false);
   };
 
+  const handleReorder = async (newList) => {
+    // update local order and persist immediately so reload keeps order
+    setButtons(newList);
+    console.log(
+      "handleReorder: new order ids:",
+      newList.map((b) => b.id)
+    );
+    try {
+      const res = await fetch(`${API_URL}/reorder`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newList),
+      });
+      console.log("reorder request sent, status:", res.status);
+      if (!res.ok) throw new Error();
+      const saved = await res.json();
+      console.log(
+        "reorder response:",
+        saved.map((b) => b.id)
+      );
+      if (Array.isArray(saved)) setButtons(saved);
+      setOrderDirty(false);
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 2000);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to save order");
+      setOrderDirty(true);
+      // keep local newList for user, but refetch to recover
+      await fetchButtons();
+    }
+  };
+
+  // persist current buttons order to server
+  const saveOrder = async () => {
+    try {
+      const res = await fetch(`${API_URL}/reorder`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buttons),
+      });
+      if (!res.ok) throw new Error();
+      // server returns the saved array; use it to sync UI
+      const saved = await res.json();
+      if (Array.isArray(saved)) {
+        setButtons(saved);
+        console.log(
+          "Order saved on server, ids:",
+          saved.map((b) => b.id)
+        );
+      } else {
+        // fallback: refetch
+        await fetchButtons();
+      }
+      setOrderDirty(false);
+      setError("");
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to save order");
+      await fetchButtons();
+    }
+  };
+
+  const cancelOrderChanges = async () => {
+    // revert local changes by refetching server state
+    await fetchButtons();
+    setOrderDirty(false);
+  };
+
+  const handleMove = async ({ id, from, to }) => {
+    try {
+      console.log("handleMove: ", { id, from, to });
+      const res = await fetch(`${API_URL}/move`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, from, to }),
+      });
+      console.log("move request sent, status:", res.status);
+      if (!res.ok) throw new Error();
+      const updated = await res.json();
+      console.log(
+        "move response ids:",
+        Array.isArray(updated) ? updated.map((b) => b.id) : updated
+      );
+      if (Array.isArray(updated)) setButtons(updated);
+      setOrderDirty(false);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to move item");
+      await fetchButtons();
+    }
+  };
+
   const handleSave = async (btn) => {
     try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(btn),
-      });
+      let res;
+      if (editingButton) {
+        // Edit mode: use PUT
+        res = await fetch(`${API_URL}/${btn.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(btn),
+        });
+      } else {
+        // Add mode: use POST
+        res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(btn),
+        });
+      }
       if (!res.ok) throw new Error();
       await fetchButtons();
       setEditingButton(null);
@@ -102,6 +210,11 @@ export default function Dashboard() {
           >
             <FaUserCog className="inline mb-1" /> Admin Dashboard
           </h1>
+          {saveSuccess && (
+            <div className="ml-4 text-sm text-green-600 font-semibold">
+              Order saved
+            </div>
+          )}
           <button
             onClick={handleLogout}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-400 ${
@@ -149,13 +262,33 @@ export default function Dashboard() {
             theme === "dark" ? "bg-[#232526]" : "bg-white"
           }`}
         >
-          <h2
-            className={`flex items-center gap-2 text-xl font-bold mb-4 ${
-              theme === "dark" ? "text-cyan-200" : "text-blue-700"
-            }`}
-          >
-            <FaRegListAlt /> Manage Buttons
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2
+              className={`flex items-center gap-2 text-xl font-bold ${
+                theme === "dark" ? "text-cyan-200" : "text-blue-700"
+              }`}
+            >
+              <FaRegListAlt /> Manage Buttons
+            </h2>
+            <div className="flex gap-2">
+              {orderDirty && (
+                <>
+                  <button
+                    onClick={saveOrder}
+                    className="px-3 py-1 rounded-lg bg-green-600 text-white font-semibold"
+                  >
+                    Save Order
+                  </button>
+                  <button
+                    onClick={cancelOrderChanges}
+                    className="px-3 py-1 rounded-lg bg-gray-300 text-gray-800 font-semibold"
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
           <ButtonForm onSave={handleSave} editingButton={editingButton} />
         </div>
         {loading ? (
@@ -176,6 +309,8 @@ export default function Dashboard() {
               buttons={buttons}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              onReorder={handleReorder}
+              onMove={handleMove}
             />
           </div>
         )}

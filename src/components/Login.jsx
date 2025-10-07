@@ -60,7 +60,7 @@ export default function Login() {
             : "bg-white border border-blue-100"
         }`}
       >
-        <button
+        {/* <button
           onClick={handleThemeToggle}
           className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold shadow transition focus:outline-none z-10 ${
             theme === "dark"
@@ -71,8 +71,8 @@ export default function Login() {
             theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"
           }
         >
-          {/* {theme === "dark" ? "☀️ Light" : "🌙 Dark"} */}
-        </button>
+          {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+        </button> */}
         <img
           src="/logo.png"
           alt="Logo"
