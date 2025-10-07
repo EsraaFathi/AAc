@@ -460,18 +460,22 @@ export default function UserPage() {
                 href={btn.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all duration-200 hover:shadow-lg ${
+                className={`group relative flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 hover:shadow-lg backdrop-blur-md ${
                   theme === "dark"
-                    ? "bg-gradient-to-r from-[#2a2d32] to-[#323539] border-cyan-800/30 hover:border-cyan-700/50 hover:shadow-cyan-900/20"
-                    : "bg-gradient-to-r from-white to-blue-50/30 border-blue-200/50 hover:border-blue-400/60 hover:shadow-blue-200/30"
+                    ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50 hover:shadow-cyan-500/20"
+                    : "bg-white/40 border-white/60 hover:bg-white/60 hover:border-blue-400/60 hover:shadow-blue-300/40"
                 } hover:-translate-y-1`}
+                style={{
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                }}
               >
                 {/* Position Badge */}
                 <div
-                  className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm ${
+                  className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm backdrop-blur-sm ${
                     theme === "dark"
-                      ? "bg-cyan-900/30 text-cyan-300"
-                      : "bg-blue-100 text-blue-700"
+                      ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                      : "bg-blue-500/20 text-blue-700 border border-blue-500/30"
                   }`}
                 >
                   {i + 1}
@@ -492,10 +496,10 @@ export default function UserPage() {
 
                 {/* Icon Button */}
                 <div
-                  className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                  className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all backdrop-blur-sm ${
                     theme === "dark"
-                      ? "bg-cyan-900/30 group-hover:bg-cyan-700/40"
-                      : "bg-blue-100 group-hover:bg-blue-200"
+                      ? "bg-cyan-500/20 group-hover:bg-cyan-500/30 border border-cyan-500/30"
+                      : "bg-blue-500/20 group-hover:bg-blue-500/30 border border-blue-500/30"
                   }`}
                 >
                   <svg
